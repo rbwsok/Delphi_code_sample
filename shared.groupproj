@@ -1,0 +1,60 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{264F63BB-A05F-4646-9918-338B18506AC3}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="sharedclient.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="sharedserver.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="test.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="sharedclient">
+        <MSBuild Projects="sharedclient.dproj"/>
+    </Target>
+    <Target Name="sharedclient:Clean">
+        <MSBuild Projects="sharedclient.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="sharedclient:Make">
+        <MSBuild Projects="sharedclient.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="sharedserver">
+        <MSBuild Projects="sharedserver.dproj"/>
+    </Target>
+    <Target Name="sharedserver:Clean">
+        <MSBuild Projects="sharedserver.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="sharedserver:Make">
+        <MSBuild Projects="sharedserver.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="test">
+        <MSBuild Projects="test.dproj"/>
+    </Target>
+    <Target Name="test:Clean">
+        <MSBuild Projects="test.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="test:Make">
+        <MSBuild Projects="test.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="sharedclient;sharedserver;test"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="sharedclient:Clean;sharedserver:Clean;test:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="sharedclient:Make;sharedserver:Make;test:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>
